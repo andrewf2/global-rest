@@ -1,4 +1,4 @@
-# lazy-rest
+# global-rest
 The is a wreckless and contraversial REST library I wrote that caters to the laziest of developers that will go to all costs to not write the same code over and over albeit just changing the URL string a tad, who are also sicking of writing the exact same response success and error callbacks for every REST call that takes place.
 
 Require the package only once in the entire app and create a global baseUrl and you should be good to go:
