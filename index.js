@@ -34,30 +34,48 @@ function getResource(str){
 
 function onSuccess(response) {
   if (response) {
-    resolve(response.data.data);
+    return response.data;
   } else {
     onError('Invalid response format');
   }
 }
 
 function onError(err) {
-  reject(err);
+  console.log(err);
 }
 
 function registerToGlobe(){
   restVerbs.forEach(function(verb){
+    var requestObject
     var method = "$" + verb;
-    global[method] = function(id){
-      var id = (id != undefined)? id : " ";
-      var caller = global[method].caller.name;
-      var resource = getResource(caller);
-      return http[verb]({
-        host:global.baseUrl,
-        port:8080,
-        method:verb.toUpperCase(),
-        path: "/"+ resource
-      },onSuccess,onError);
+    if(verb != "put" && verb != 'post'){
+      global[method] = function(id){
+        var id = (id != undefined)? id : " ";
+        var caller = global[method].caller.name;
+        var resource = getResource(caller);
+        return http[verb]({
+          host:global.baseUrl,
+          port:8080,
+          method:verb.toUpperCase(),
+          path: "/"+ resource
+        },onSuccess,onError);
+      }
     }
+    else{
+      global[method] = function(id,data){
+        var id = (id != undefined)? id : " ";
+        var caller = global[method].caller.name;
+        var resource = getResource(caller);
+        return http[verb]({
+          host:global.baseUrl,
+          port:8080,
+          method:verb.toUpperCase(),
+          data:data,
+          path: "/"+ resource
+        },onSuccess,onError);
+      }      
+    }
+
   })
 }
 
