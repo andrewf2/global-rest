@@ -18,9 +18,11 @@ WARNING: WILL NOT WORK IN STRICT MODE....yet
 
 ```//GET: "http://some-rest-service.com/users"```
 ```//pass in a optional 'id' param to make a call for one user```
-```function getUsers(){
+```
+function getUsers(){
 	$get();
-}```
+}
+```
 
 
 ```//PUT: "http://some-rest-service.com/profile/:id"```
