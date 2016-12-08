@@ -7,7 +7,7 @@ global.baseURL = "http://some-rest-service.com";
 require('global-rest');
 
 Installation:
-npm install lazy-rest
+npm install global-rest
 
 Usage: This library is built based on the assumption you are doing your api URLs in a truly RESTful manner. Also it is dependent on how you name your functions, as long as the last word in the name of your function is the resource name you will be fine, something you probably already do
 
