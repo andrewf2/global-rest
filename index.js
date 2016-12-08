@@ -1,21 +1,4 @@
-var http = {
-  get:function(url){
-    console.log(JSON.stringify(url))
-  },
-
-  put:function(url){
-    console.log(JSON.stringify(url))
-  },
-
-  post:function(url){
-    console.log(JSON.stringify(url))
-  },
-
-  del:function(url){
-    console.log(JSON.stringify(url))
-  },
-
-}
+var request = require('request');
 
 var restVerbs = ['get','put','post','del'];
 
@@ -32,13 +15,12 @@ function getResource(str){
   return resource.toLowerCase();
 }
 
-function onSuccess(response) {
-  if (response) {
-    return response.data;
-  } else {
-    onError('Invalid response format');
-  }
-}
+function onSuccess(err,response,body) {
+  //console.log(response);
+  console.log(body);
+  
+};
+  
 
 function onError(err) {
   console.log(err);
@@ -47,36 +29,30 @@ function onError(err) {
 function registerToGlobe(){
   restVerbs.forEach(function(verb){
     var requestObject
+
     var method = "$" + verb;
     if(verb != "put" && verb != 'post'){
+      if(verb == 'del'){
+        verb = 'delete';
+      }
       global[method] = function(id){
-        var id = (id != undefined)? id : " ";
+        var id = (id != undefined)? "/" + id : "";
         var caller = global[method].caller.name;
         var resource = getResource(caller);
-        return http[verb]({
-          host:global.baseUrl,
-          port:8080,
-          method:verb.toUpperCase(),
-          path: "/"+ resource + "/" + id
-        },onSuccess,onError);
+        console.log(global.baseUrl + '/' + resource+id)
+        return request[verb](global.baseUrl + '/' + resource+id,onSuccess);
       }
     }
     else{
       global[method] = function(id,data){
         if(typeof id == 'object'){
           var data = id;
+          id = "";
         }
-        var id = (id != undefined && typeof id == 'string')? id : " ";
-
+        var id = (id != undefined && typeof id == 'string')? "/" + id : "";
         var caller = global[method].caller.name;
         var resource = getResource(caller);
-        return http[verb]({
-          host:global.baseUrl,
-          port:8080,
-          method:verb.toUpperCase(),
-          data:data,
-          path: "/"+ resource + "/" + id
-        },onSuccess,onError);
+        return request[verb]({url:global.baseUrl + '/' + resource + id, form: data},onSuccess);
       }      
     }
 
