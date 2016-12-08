@@ -57,13 +57,19 @@ function registerToGlobe(){
           host:global.baseUrl,
           port:8080,
           method:verb.toUpperCase(),
-          path: "/"+ resource
+          path: "/"+ resource + "/" + id
         },onSuccess,onError);
       }
     }
     else{
       global[method] = function(id,data){
-        var id = (id != undefined)? id : " ";
+        console.log(typeof id);
+        console.log(typeof data);
+        if(typeof id == 'object'){
+          var data = id;
+        }
+        var id = (id != undefined && typeof id == 'string')? id : " ";
+
         var caller = global[method].caller.name;
         var resource = getResource(caller);
         return http[verb]({
@@ -71,7 +77,7 @@ function registerToGlobe(){
           port:8080,
           method:verb.toUpperCase(),
           data:data,
-          path: "/"+ resource
+          path: "/"+ resource + "/" + id
         },onSuccess,onError);
       }      
     }
