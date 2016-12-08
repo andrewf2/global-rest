@@ -63,8 +63,6 @@ function registerToGlobe(){
     }
     else{
       global[method] = function(id,data){
-        console.log(typeof id);
-        console.log(typeof data);
         if(typeof id == 'object'){
           var data = id;
         }
