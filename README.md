@@ -16,10 +16,10 @@ Require the package only once in the entire app and create a global baseUrl and 
 
 WARNING: WILL NOT WORK IN STRICT MODE....yet
 
-//GET: "http://some-rest-service.com/users";
-
-`function getUsers(){
-	$get();` //pass in a optional 'id' param to make a call for one user
+`//GET: "http://some-rest-service.com/users";
+ //pass in a optional 'id' param to make a call for one user
+function getUsers(){
+	$get();
 }`
 
 
