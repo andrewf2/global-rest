@@ -1,0 +1,27 @@
+{
+  "name": "global-rest",
+  "version": "1.10.1",
+  "description": "Humor me on this one guys....",
+  "main": "index.js",
+  "scripts": {
+    "test": "--mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrewf2/global-rest.git"
+  },
+  "keywords": [
+    "global",
+    "HTTP",
+    "REST",
+    "AJAX",
+    "shorthand",
+    "lazy"
+  ],
+  "author": "Andrew Ferguson <andrewf02@gmail.com> (http://www.github.com/andrewf2)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrewf2/global-rest/issues"
+  },
+  "homepage": "https://github.com/andrewf2/global-rest#readme"
+}
