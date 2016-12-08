@@ -16,25 +16,26 @@ Require the package only once in the entire app and create a global baseUrl and 
 
 WARNING: WILL NOT WORK IN STRICT MODE....yet
 
-`//GET: "http://some-rest-service.com/users";
- //pass in a optional 'id' param to make a call for one user
-function getUsers(){
+```//GET: "http://some-rest-service.com/users"```
+```//pass in a optional 'id' param to make a call for one user```
+```function getUsers(){
 	$get();
-}`
+}```
 
 
-//PUT: "http://some-rest-service.com/profile";
-`
+```//PUT: "http://some-rest-service.com/profile/:id"```
+```
 function updateUserProfile(id){
 	$put(id);
 }
-`
+```
 
-//DELETE:  "http://some-rest-service.com/users/:id";
-`
+```//DELETE:  "http://some-rest-service.com/users/:id"```
+```
 function deleteUsers(id){
 	$del(id);
-}`
+}
+```
 
 
 
