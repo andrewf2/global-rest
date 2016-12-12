@@ -1,6 +1,6 @@
 {
   "name": "global-rest",
-  "version": "1.10.4",
+  "version": "1.10.5",
   "description": "Humor me on this one guys....",
   "main": "index.js",
   "scripts": {
@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/andrewf2/global-rest#readme",
   "dependencies": {
+    "request": "^2.79.0",
     "require": "^2.4.20"
   }
 }

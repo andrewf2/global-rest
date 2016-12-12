@@ -1,6 +1,6 @@
 var request = require('request');
-
-var restVerbs = ['get','put','post','del'];
+var id,data;
+var restVerbs = ['get','put','post','delete'];
 
 function getResource(str){
   var resource = "";
@@ -15,49 +15,57 @@ function getResource(str){
   return resource.toLowerCase();
 }
 
-function onSuccess(err,response,body) {
-  //console.log(response);
-  console.log(body);
-  
-};
-  
-
-function onError(err) {
-  console.log(err);
+function buildParam(param){
+  var paramsMap = {
+    number:function(){
+      id = param;
+    },   
+    string:function(){
+      id = param;
+    },
+    object: function(){
+      data = param;
+    }
+  }
+  paramsMap[typeof param]();
 }
 
+function buildParams(args){
+  for(var arg in args){
+    buildParam(args[arg]);
+  }
+}
 function registerToGlobe(){
   restVerbs.forEach(function(verb){
-    var requestObject
-
+    var requestObject;
     var method = "$" + verb;
-    if(verb != "put" && verb != 'post'){
-      if(verb == 'del'){
+    if(verb == 'del'){
         verb = 'delete';
-      }
-      global[method] = function(id){
-        var id = (id != undefined)? "/" + id : "";
-        var caller = global[method].caller.name;
-        var resource = getResource(caller);
-        console.log(global.baseUrl + '/' + resource+id)
-        return request[verb](global.baseUrl + '/' + resource+id,onSuccess);
-      }
     }
-    else{
-      global[method] = function(id,data){
-        if(typeof id == 'object'){
-          var data = id;
-          id = "";
-        }
-        var id = (id != undefined && typeof id == 'string')? "/" + id : "";
-        var caller = global[method].caller.name;
-        var resource = getResource(caller);
-        return request[verb]({url:global.baseUrl + '/' + resource + id, form: data},onSuccess);
-      }      
-    }
-
+    global[method] = function(){
+      if(global[method].arguments[0] != undefined){
+        buildParams(global[method].arguments)
+      }
+      
+      id = (id != undefined && typeof id == 'string')? "/" + id : "";
+      var resource = getResource(global[method].caller.name);
+      return new Promise(function(resolve,reject){
+        request[verb]({url:global.baseUrl + '/' + resource + id, form: data},function(err,response,body){
+          var payload = {
+            err:err,
+            body:body,
+            response:response
+          }
+          if(!payload.err){
+            resolve(payload)
+          }
+          else{
+            reject(payload.err)
+          }
+        });
+      })
+    }      
   })
 }
-
 
 module.exports = registerToGlobe();
