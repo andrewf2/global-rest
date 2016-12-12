@@ -3,7 +3,7 @@ The is a wreckless and contraversial REST library I wrote that caters to the laz
 
 Require the package only once in the entire app and create a global baseUrl and you should be good to go:
 ```
-global.baseURL = "http://some-rest-service.com";
+global.baseUrl = "http://some-rest-service.com";
 require('global-rest');
 ```
 
