@@ -21,24 +21,31 @@ WARNING: WILL NOT WORK IN STRICT MODE....yet
 ```//pass in a optional 'id' param to make a call for one user```
 ```
 function getUsers(){
-	$get();
+	$get() //return a thenable promise
 }
 ```
 
 
 ```//PUT: "http://some-rest-service.com/profile/:id"```
 ```
-function updateUserProfile(id){
-	$put(id);
+function updateUserProfile(id,userData){
+	$put(id,userData); //return a thenable promise
 }
 ```
 
 ```//DELETE:  "http://some-rest-service.com/users/:id"```
 ```
 function deleteUsers(id){
-	$del(id);
+	$delete(id); //return a thenable promise
 }
 ```
+```//POST:  "http://some-rest-service.com/users/:id"```
+```
+function createUsers(id,user){
+	$post(id,user); //return a thenable promise
+}
+```
+
 
 
 
